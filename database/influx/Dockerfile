@@ -1,0 +1,14 @@
+FROM docker.io/influxdb:latest
+
+ENV DOCKER_INFLUXDB_INIT_MODE=setup
+ENV DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=asyin
+ENV DOCKER_INFLUXDB_INIT_PASSWORD=asyinasyin
+ENV DOCKER_INFLUXDB_INIT_USERNAME=asyin
+ENV DOCKER_INFLUXDB_INIT_ORG=asyin
+ENV DOCKER_INFLUXDB_INIT_BUCKET=asyin
+
+COPY init_db.sh /docker-entrypoint-initdb.d/
+COPY driving.csv .
+COPY brands.csv .
+
+EXPOSE 8086

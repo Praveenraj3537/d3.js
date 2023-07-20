@@ -1,0 +1,55 @@
+services:
+  backend:
+    build: backend
+    container_name: backend
+    ports:
+      - "3000:3000"
+    depends_on: [postgres, mongo, influx]
+    networks:
+      network:
+        ipv4_address: 10.5.0.2
+
+  frontend:
+    build: frontend
+    container_name: frontend
+    ports:
+      - "8080:8080"
+    depends_on: [backend]
+    networks:
+      network:
+        ipv4_address: 10.5.0.3
+
+  postgres:
+    build: database/postgres
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      network:
+        ipv4_address: 10.5.0.4
+
+  mongo:
+    build: database/mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      network:
+        ipv4_address: 10.5.0.5
+    
+  influx:
+    build: database/influx
+    container_name: influx
+    ports:
+      - "8086:8086"
+    networks:
+      network:
+        ipv4_address: 10.5.0.6
+
+networks:
+  network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1

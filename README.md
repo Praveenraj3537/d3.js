@@ -1,2 +1,7 @@
-# d3.js
-D3.JS Implementation with different databases
+# d3js project
+
+## Usage
+```shell
+docker compose build
+docker compose up
+```
